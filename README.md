@@ -1,1150 +1,748 @@
-Linux Day 1 Notes — Beginner Terminal & Filesystem Fundamentals
+# Linux Learning Journey — Days 1 to 3 🐧
 
-1. Goal of Day 1
+A practical beginner Linux reference covering terminal basics, file handling, text processing, permissions, users, and process management.
 
-The goal of Day 1 is to become comfortable with the Linux terminal and understand how to:
+---
 
-identify the current user
+# Day 1 — Terminal & Filesystem Basics
 
-identify the current working directory
+## 📍 Navigation
 
-list files and directories
+| Command | Description |
+|---|---|
+| `whoami` | Show the current logged-in user |
+| `pwd` | Show the full path of the current working directory |
+| `ls` | List files and directories |
+| `ls -l` | Long listing with permissions, owner, size, and time |
+| `ls -a` | Show hidden files |
+| `ls -lh` | Long listing with human-readable sizes |
+| `ls -lah` | Long listing + hidden files + readable sizes |
+| `cd folder` | Enter a directory |
+| `cd ..` | Go to the parent directory |
+| `cd .` | Stay in the current directory |
+| `cd ~` | Go to the home directory |
+| `cd -` | Go back to the previous directory |
+| `clear` / `Ctrl+L` | Clear the terminal screen |
 
-move around the filesystem
+### Important Path Symbols
 
-create files and directories
+| Symbol | Meaning |
+|---|---|
+| `/` | Filesystem root |
+| `~` | Home directory |
+| `.` | Current directory |
+| `..` | Parent directory |
 
-copy, move, rename, and delete files
+### Absolute vs Relative Paths
 
-inspect directory structures
+Absolute path:
 
-work with hidden files
-
-read file contents
-
-use basic shell redirection
-
-use command history and terminal shortcuts
-
-understand common beginner errors
-
-By the end of this material, a beginner should be able to work confidently inside a Linux directory using the terminal.
-
-2. Understanding the Linux Terminal Prompt
-
-A Linux prompt may look like this:
-
-user@computer:~/linux-lab$
-
-A simplified interpretation:
-
-user        -> current username
-computer    -> computer or hostname
-~           -> current directory is the user's home directory
-$           -> normal user shell prompt
-
-The ~ symbol represents the current user's home directory.
-
-For example:
-
-/home/alex
-
-may be represented as:
-
-~
-
-So:
-
-cd ~
-
-means:
-
-Go to the current user's home directory.
-
-3. Finding Out Who and Where You Are
-
-whoami
-
-Displays the current username.
-
-whoami
-
-Example output:
-
-alex
-
-Useful when working on servers, virtual machines, or systems with multiple user accounts.
-
-pwd
-
-pwd means:
-
-print working directory
-
-It displays the full path of the directory currently being used.
-
-pwd
-
-Example:
-
-/home/alex/linux-lab
-
-A good Linux habit is to run pwd before using destructive commands if there is any uncertainty about the current location.
-
-4. Listing Files and Directories
-
-ls
-
-Lists files and directories in the current location.
-
-ls
-
-Example:
-
-documents  downloads  projects
-
-ls -l
-
-Displays detailed information.
-
-ls -l
-
-Example:
-
-drwxr-xr-x 2 alex alex 4096 Sep 26 10:30 documents
-
-The columns roughly mean:
-
-drwxr-xr-x   permissions and file type
-2            hard-link count
-alex         owner
-alex         group
-4096         size in bytes
-Sep 26 10:30 last modification time
-documents    name
-
-ls -a
-
-Shows all files, including hidden ones.
-
-ls -a
-
-Hidden files begin with a dot:
-
-.config
-.bashrc
-.profile
-
-Linux does not require a special hidden-file attribute. A filename beginning with . is normally treated as hidden by tools such as ls.
-
-ls -h
-
-The -h option means:
-
-human-readable
-
-It is most useful with long listing output:
-
-ls -lh
-
-Instead of displaying:
-
-4096
-
-Linux may display:
-
-4.0K
-
-ls -lah
-
-A commonly useful combination:
-
-ls -lah
-
-It means:
-
-l -> long listing
-
-a -> include hidden files
-
-h -> human-readable sizes
-
-5. Navigating the Filesystem
-
-cd
-
-cd means:
-
-change directory
-
-Example:
-
-cd documents
-
-This enters the documents directory.
-
-cd ..
-
-Moves to the parent directory.
-
-Example:
-
-/home/alex/linux-lab/documents
-
-Running:
-
-cd ..
-
-moves to:
-
-/home/alex/linux-lab
-
-The symbol:
-
-..
-
-means:
-
-parent directory
-
-cd .
-
-The symbol:
-
-.
-
-means:
-
-current directory
-
-Therefore:
-
-cd .
-
-does not really move anywhere.
-
-The . symbol is still important because many Linux commands use it to represent the current directory.
-
-Example:
-
-find .
-
-means:
-
-search starting from the current directory.
-
-cd ~
-
-Moves to the user's home directory.
-
-cd ~
-
-Example result:
-
-/home/alex
-
-cd -
-
-Moves back to the previous directory.
-
-Example:
-
-cd /var/log
-cd /etc
-cd -
-
-The final command returns to:
-
-/var/log
-
-This is a very useful shell shortcut.
-
-6. Absolute and Relative Paths
-
-Understanding paths is one of the most important Linux skills.
-
-Absolute path
-
-Starts from the filesystem root /.
-
-Example:
-
+```text
 /home/alex/linux-lab/documents/notes.txt
+```
 
-Command example:
+Relative path:
 
-cd /home/alex/linux-lab/documents
+```text
+documents/notes.txt
+```
 
-Relative path
+Think:
 
-Starts from the current directory.
+```text
+Absolute path = full address
+Relative path = directions from where you are now
+```
 
-If the current directory is:
+---
 
-/home/alex/linux-lab
+## 📁 Creating Files & Directories
 
-then:
+| Command | Description |
+|---|---|
+| `mkdir folder` | Create a directory |
+| `mkdir dir1 dir2 dir3` | Create multiple directories |
+| `touch file.txt` | Create an empty file |
+| `touch one.txt two.txt` | Create multiple files |
 
-cd documents
+### Important
 
-uses a relative path.
+```bash
+mkdir notes.txt
+```
 
-Similarly:
+creates a directory named `notes.txt`.
 
-cat documents/notes.txt
-
-refers to a file relative to the current directory.
-
-7. Creating Directories
-
-mkdir
-
-mkdir means:
-
-make directory
-
-Example:
-
-mkdir documents
-
-Create several directories at once:
-
-mkdir documents downloads projects
-
-This creates three separate directories.
-
-Important beginner mistake
-
-This command:
-
-mkdir a.txt b.txt
-
-creates directories named:
-
-a.txt
-b.txt
-
-It does not create text files.
-
-Linux file extensions are mostly naming conventions. A name ending in .txt does not automatically make something a text file.
-
-Use touch to create regular empty files.
-
-8. Creating Files
-
-touch
-
-Creates an empty file if it does not already exist.
-
+```bash
 touch notes.txt
+```
 
-Create multiple files:
+creates a regular file.
 
-touch one.txt two.txt three.txt
+Linux does not treat `.txt` as magical. The name alone does not define whether something is a file or directory.
 
-Create a file inside another directory:
+---
 
-touch documents/linux.txt
+## 📂 Copying, Moving & Renaming
 
-9. Viewing Directory Structures
+| Command | Description |
+|---|---|
+| `cp source destination` | Copy a file |
+| `cp fileA fileB` | Copy fileA into fileB |
+| `mv source destination` | Move a file |
+| `mv oldname newname` | Rename a file |
 
-find
+Examples:
 
-A simple and useful way to display everything under a directory:
+```bash
+cp documents/notes.txt downloads/
+mv downloads/test.txt projects/
+mv projects/app.txt projects/main.txt
+```
 
-find .
+Copy and rename:
+
+```bash
+cp documents/notes.txt backup/notes-copy.txt
+```
+
+---
+
+## 🗑️ Deleting Files & Directories
+
+| Command | Description |
+|---|---|
+| `rm file.txt` | Delete a file |
+| `rmdir folder` | Delete an empty directory |
+| `rm -r folder` | Delete a directory and everything inside it |
+
+### Safe Habit
+
+Before recursive deletion:
+
+```bash
+pwd
+ls
+```
+
+Then verify the target.
+
+---
+
+## 👻 Hidden Files
+
+Hidden files usually start with `.`
 
 Example:
 
+```bash
+touch .config
+```
+
+Normal listing:
+
+```bash
+ls
+```
+
+Hidden listing:
+
+```bash
+ls -a
+```
+
+Remember:
+
+```text
+.  = current directory
+.. = parent directory
+```
+
+---
+
+## 📄 Viewing File Content
+
+| Command | Description |
+|---|---|
+| `cat file` | Show the full file |
+| `head file` | Show the first 10 lines |
+| `head -5 file` | Show the first 5 lines |
+| `tail file` | Show the last 10 lines |
+| `tail -5 file` | Show the last 5 lines |
+| `less file` | Scroll through a file interactively |
+
+Useful `less` controls:
+
+| Key | Action |
+|---|---|
+| `↑ / ↓` | Move through file |
+| `/word` | Search |
+| `n` | Next search result |
+| `q` | Quit |
+
+---
+
+## 📝 Writing Text & Redirection
+
+| Command | Description |
+|---|---|
+| `echo "text"` | Print text |
+| `echo "text" > file.txt` | Overwrite file with text |
+| `echo "text" >> file.txt` | Append text |
+
+Remember:
+
+```text
+>  = overwrite
+>> = append
+```
+
+---
+
+## 🔍 Inspecting Directory Structure
+
+```bash
+find .
+```
+
+Example:
+
+```text
 .
 ./documents
 ./documents/linux.txt
 ./documents/notes.txt
-./downloads
 ./projects
 ./projects/main.txt
+```
 
-To inspect a specific directory:
+---
 
-find final-test
+## 🔁 Basic Bash Loop
 
-Important: paths are interpreted relative to the current working directory unless an absolute path is supplied.
-
-If already inside final-test, running:
-
-find final-test
-
-looks for:
-
-final-test/final-test
-
-Instead, use:
-
-find .
-
-10. Copying Files
-
-cp
-
-cp means:
-
-copy
-
-Example:
-
-cp documents/notes.txt downloads/
-
-The original file remains in documents, while a copy appears in downloads.
-
-Copy and rename in one command
-
-cp documents/notes.txt backup/notes-copy.txt
-
-This copies the file and gives the copied version a different name.
-
-11. Moving and Renaming Files
-
-mv
-
-mv means:
-
-move
-
-Move a file:
-
-mv downloads/test.txt projects/
-
-Rename a file
-
-Linux uses the same mv command for renaming.
-
-mv projects/app.txt projects/main.txt
-
-Conceptually:
-
-old path -> new path
-
-12. Deleting Files and Directories
-
-Deletion commands should be used carefully.
-
-rm
-
-Deletes regular files.
-
-rm notes.txt
-
-rmdir
-
-Deletes an empty directory.
-
-rmdir empty-folder
-
-It fails if the directory contains files or subdirectories.
-
-rm -r
-
-Deletes a directory recursively, including its contents.
-
-rm -r temp
-
-The -r option means:
-
-recursive
-
-This can delete an entire directory tree, so always verify the target first.
-
-Recommended habit:
-
-pwd
-ls
-
-Then use the delete command.
-
-13. Hidden Files
-
-Any filename beginning with a dot is normally hidden.
-
-Create one:
-
-touch .config
-
-A normal listing may not show it:
-
-ls
-
-But this will:
-
-ls -a
-
-Example:
-
-.  ..  .config  documents  projects
-
-Here:
-
-.   -> current directory
-..  -> parent directory
-
-14. Reading File Contents
-
-cat
-
-Displays the whole file.
-
-cat notes.txt
-
-Example output:
-
-Linux is powerful
-Day 1 practice
-
-Best for small files.
-
-head
-
-Displays the beginning of a file.
-
-head notes.txt
-
-Usually shows the first 10 lines.
-
-Show only the first 5 lines:
-
-head -5 notes.txt
-
-Show only the first line:
-
-head -1 notes.txt
-
-tail
-
-Displays the end of a file.
-
-tail notes.txt
-
-Show the last 5 lines:
-
-tail -5 notes.txt
-
-Show the last line:
-
-tail -1 notes.txt
-
-15. Reading Larger Files with less
-
-For larger files, less is usually better than cat.
-
-less notes.txt
-
-Useful keys inside less:
-
-Up / Down Arrow   move through the file
-Page Up / Down    move by larger sections
-/text             search for text
-n                 next search result
-q                 quit
-
-Example search:
-
-/line 10
-
-Then press:
-
-n
-
-to find the next match.
-
-16. Writing Text into Files
-
-echo
-
-Prints text.
-
-echo "Hello Linux"
-
-Output:
-
-Hello Linux
-
-17. Output Redirection
-
-Redirection lets command output be sent into files.
-
->
-
-Writes output to a file and replaces existing content.
-
-echo "Linux is powerful" > notes.txt
-
-If notes.txt already contains text, its previous contents are replaced.
-
->>
-
-Appends output to the end of a file.
-
-echo "Day 1 practice" >> notes.txt
-
-Now the file contains both lines.
-
-Simple rule:
-
->   overwrite
->>  append
-
-This distinction is important.
-
-18. A First Bash Loop
-
-Although loops are more advanced than basic Day 1 Linux usage, a simple loop is useful for generating practice data.
-
-Example:
-
+```bash
 for i in {1..15}; do echo "line $i" >> notes.txt; done
+```
 
-This appends:
+---
 
-line 1
-line 2
-line 3
-...
-line 15
+## ⌨️ Useful Terminal Shortcuts
 
-Important syntax:
+| Shortcut | Description |
+|---|---|
+| `↑` | Previous command |
+| `↓` | Next command |
+| `Ctrl+R` | Search command history |
+| `Tab` | Autocomplete |
+| `Ctrl+A` | Move to start of line |
+| `Ctrl+E` | Move to end of line |
+| `Ctrl+L` | Clear screen |
+| `Ctrl+C` | Stop current command |
 
-for i in {1..15}; do
+---
 
-When written on one line, semicolons separate the parts of the command.
+## 🧠 Day 1 Mental Model
 
-Correct:
-
-for i in {1..15}; do echo "line $i"; done
-
-Incorrect:
-
-for i in (1..15)
-
-Bash uses brace expansion:
-
-{1..15}
-
-not parentheses for this example.
-
-19. Multiple Commands on One Line
-
-Normally commands can be written on separate lines:
-
-cd documents
-touch notes.txt
-
-They can also be separated with a semicolon:
-
-cd documents; touch notes.txt
-
-This is different from writing:
-
-cd documents touch notes.txt
-
-The last form passes extra words as arguments to cd, so Bash may produce an error such as:
-
-cd: too many arguments
-
-20. Understanding Command Errors
-
-Errors are useful feedback.
-
-command not found
-
-Example:
-
-pw
-
-Output:
-
-pw: command not found
-
-This means Bash could not find a command named pw.
-
-The intended command may have been:
-
-pwd
-
-No such file or directory
-
-Example:
-
-cat docs/notes.txt
-
-may fail if the current directory does not contain docs.
-
-Always ask:
-
+```text
+Who am I?
+↓
 Where am I?
+↓
+What is here?
+↓
+What path do I need?
+↓
+What command should I use?
+↓
+How do I verify it?
+```
+
+---
 
-Check with:
+# Day 2 — Search, Filter, Count & Sort
 
-pwd
+## 🔎 `grep`
 
-Then inspect:
+| Command | Description |
+|---|---|
+| `grep "word" file` | Show lines containing the word |
+| `grep -i "word" file` | Ignore uppercase/lowercase |
+| `grep -n "word" file` | Show matching line numbers |
+| `grep -v "word" file` | Show lines that do NOT match |
+| `grep -c "word" file` | Count matching lines |
+| `grep -l "word" file` | Show filename if it contains a match |
+| `grep -E "A|B" file` | Match A OR B |
 
-ls
+Examples:
 
-Is a directory
+```bash
+grep "ERROR" server.log
+grep -i "alice" server.log
+grep -n "ERROR" server.log
+grep -v "INFO" server.log
+grep -E "ERROR|WARNING" server.log
+```
 
-Example:
+---
 
-rm a.txt
+## 🔢 `wc`
 
-may return:
+| Command | Description |
+|---|---|
+| `wc file` | Show lines, words, and bytes |
+| `wc -l file` | Count lines |
+| `wc -w file` | Count words |
+| `wc -c file` | Count bytes |
 
-rm: cannot remove 'a.txt': Is a directory
+---
 
-This means the object named a.txt is actually a directory.
+## 🔗 Pipes `|`
 
-Check:
+```bash
+grep "ERROR" server.log | wc -l
+```
 
-ls -l
+Mental model:
 
-The first character indicates the type:
+```text
+find ERROR lines
+↓
+count them
+```
 
-d   directory
--   regular file
+---
 
-21. Terminal History
+## 🔃 `sort` and `uniq`
 
-history
+| Command | Description |
+|---|---|
+| `sort file` | Sort alphabetically |
+| `sort -r file` | Reverse sort |
+| `uniq` | Remove consecutive duplicate lines |
+| `uniq -c` | Count consecutive duplicates |
+| `sort -nr` | Numeric sort, highest first |
 
-Displays previously executed commands.
+Examples:
 
-history
+```bash
+sort names.txt | uniq
+sort names.txt | uniq -c
+sort names.txt | uniq -c | sort -nr
+sort names.txt | uniq -c | sort -nr | head -2
+```
 
-Show only recent commands:
+### Why `sort -nr`?
 
-history | tail -10
+```text
+-n = numeric
+-r = reverse
+```
 
-The pipe | will be studied more deeply later, but in this example it sends the output of history into tail.
+So `sort -nr` sorts numbers from largest to smallest.
 
-22. Useful Terminal Keyboard Shortcuts
+---
 
-Up Arrow / Down Arrow
+## 🔍 `find`
 
-Move through previously used commands.
+| Command | Description |
+|---|---|
+| `find . -type f` | Find files only |
+| `find . -type d` | Find directories only |
+| `find . -name "*.txt"` | Find `.txt` files |
+| `find . -iname "*.txt"` | Case-insensitive filename search |
 
-Useful for quickly rerunning or editing previous commands.
+Examples:
 
-Ctrl + R
+```bash
+find . -name "*.txt" | wc -l
+find . -type f | grep "notes"
+```
 
-Search command history interactively.
+---
 
-Press:
+## 💾 Saving Filtered Output
 
-Ctrl + R
-
-Then type part of a previous command.
-
-Example:
-
-find
-
-Bash may locate an earlier command such as:
-
-find .
-
-Tab Completion
-
-Start typing a file or directory name and press:
-
-Tab
-
-Example:
-
-cd doc
-
-Press Tab and Bash may complete it to:
-
-cd documents/
-
-This saves time and reduces typing mistakes.
-
-Ctrl + A
-
-Move the cursor to the beginning of the current command line.
-
-Ctrl + E
-
-Move the cursor to the end of the current command line.
-
-Ctrl + L
-
-Clear the terminal screen.
-
-Equivalent in effect to running:
-
-clear
-
-Ctrl + C
-
-Interrupt the currently running command.
-
-This is one of the most important shell shortcuts.
-
-23. Useful Day 1 Command Summary
-
-Command
-
-Purpose
-
-whoami
-
-Show current username
-
-pwd
-
-Show current working directory
-
-ls
-
-List files and directories
-
-ls -l
-
-Detailed listing
-
-ls -a
-
-Show hidden files
-
-ls -lah
-
-Detailed + hidden + readable sizes
-
-cd DIR
-
-Enter a directory
-
-cd ..
-
-Move to parent directory
-
-cd ~
-
-Go to home directory
-
-cd -
-
-Go to previous directory
-
-mkdir DIR
-
-Create directory
-
-touch FILE
-
-Create empty file
-
-cp SRC DEST
-
-Copy
-
-mv SRC DEST
-
-Move or rename
-
-rm FILE
-
-Delete file
-
-rmdir DIR
-
-Delete empty directory
-
-rm -r DIR
-
-Delete directory recursively
-
-find .
-
-Display/search directory tree
-
-cat FILE
-
-Display entire file
-
-head FILE
-
-Show beginning of file
-
-tail FILE
-
-Show end of file
-
-less FILE
-
-Interactive file viewer
-
-echo TEXT
-
-Print text
-
-history
-
-Show previous commands
-
-24. Important Symbols Learned
-
-Symbol
-
-Meaning
-
-/
-
-Filesystem root / path separator
-
-~
-
-Current user's home directory
-
-.
-
-Current directory
-
-..
-
-Parent directory
-
->
-
-Redirect and overwrite
-
->>
-
-Redirect and append
-
-`
-
-`
-
-Send one command's output to another command
-
-The pipe symbol | is only introduced here briefly and is normally studied in more detail in the next stage.
-
-25. Practice Lab
-
-Create a safe practice directory:
-
-mkdir ~/linux-lab
-cd ~/linux-lab
-
-Create:
-
-mkdir documents downloads projects
-
-Create files:
-
-touch documents/notes.txt
-touch documents/linux.txt
-touch downloads/test.txt
-touch projects/app.txt
+```bash
+grep "ERROR" server.log > errors.txt
+grep -v "INFO" server.log > problems.txt
+```
 
 Verify:
 
-find .
+```bash
+cat errors.txt
+cat problems.txt
+```
 
-Copy:
+---
 
-cp documents/notes.txt downloads/
+## 🧠 Day 2 Mental Model
 
-Move:
+```text
+Get data
+↓
+Filter it
+↓
+Count / sort / rank it
+↓
+Display or save result
+```
 
-mv downloads/test.txt projects/
+---
 
-Rename:
+# Day 3 — Permissions, Users & Processes
 
-mv projects/app.txt projects/main.txt
+## 🔐 File Permissions
 
-Create a hidden file:
+Example:
 
-touch .config
+```text
+-rw-r--r--
+```
 
-Inspect:
+Breakdown:
 
-ls -lah
+```text
+-   rw-   r--   r--
+    owner group others
+```
 
-Add text:
+File type:
 
-echo "Linux practice" > documents/notes.txt
-echo "Day 1" >> documents/notes.txt
+```text
+- = regular file
+d = directory
+```
 
-Read:
+Permission letters:
 
-cat documents/notes.txt
+| Letter | Meaning |
+|---|---|
+| `r` | read |
+| `w` | write |
+| `x` | execute/access |
 
-26. Final Practice Challenge
+Numeric values:
 
-Without following exact commands line by line, create this structure:
+| Permission | Value |
+|---|---|
+| `r` | 4 |
+| `w` | 2 |
+| `x` | 1 |
 
-final-test/
-├── .config
-├── backup/
-│   └── notes-copy.txt
-├── docs/
-│   ├── linux.txt
-│   └── notes.txt
-└── projects/
-    └── main.txt
+Examples:
 
-Requirements:
+```text
+7 = rwx = 4+2+1
+6 = rw- = 4+2
+5 = r-x = 4+1
+4 = r--
+```
 
-Create all directories.
+---
 
-Create docs/linux.txt.
+## 🔧 `chmod`
 
-Create docs/notes.txt.
+```bash
+chmod 600 file
+chmod 644 file
+chmod 755 file
+```
 
-Put some text inside docs/notes.txt.
+Meaning:
 
-Copy that file into backup/ as notes-copy.txt.
+```text
+600 = rw-------
+644 = rw-r--r--
+755 = rwxr-xr-x
+700 = rwx------
+640 = rw-r-----
+444 = r--r--r--
+```
 
-Create projects/app.txt.
+The three digits represent:
 
-Rename projects/app.txt to projects/main.txt.
+```text
+owner | group | others
+```
 
-Create .config inside final-test.
+---
 
-Verify using:
+## 👤 Users & Groups
 
-find final-test
+| Command | Description |
+|---|---|
+| `whoami` | Show current username |
+| `id` | Show UID, GID, and groups |
+| `groups` | Show groups the user belongs to |
 
-Inspect hidden files and file details:
+---
 
-ls -lah final-test
+## ⚙️ Processes
 
-27. Common Beginner Mistakes
+A process is a running program.
 
-Mistake 1: Confusing files and directories
+```text
+PID = Process ID
+```
 
-mkdir notes.txt
+### `ps`
 
-creates a directory, not a regular text file.
+```bash
+ps
+```
 
-Use:
+Shows processes attached to the current shell.
 
-touch notes.txt
+### `ps aux`
 
-for an empty file.
+```bash
+ps aux
+```
 
-Mistake 2: Forgetting the current directory
+Shows a much broader process list.
 
-A relative path only works relative to the current location.
+Useful columns:
 
-Before troubleshooting:
+| Column | Meaning |
+|---|---|
+| `USER` | Process owner |
+| `PID` | Process ID |
+| `%CPU` | CPU usage |
+| `%MEM` | Memory usage |
+| `STAT` | Process state |
+| `COMMAND` | Program/command |
 
+---
+
+## 😴 `sleep`
+
+`sleep` is a standard Unix/Linux command.
+
+```bash
+sleep 300
+```
+
+means:
+
+> wait for 300 seconds, then exit.
+
+Examples:
+
+```bash
+sleep 5
+sleep 30
+sleep 300
+sleep 2m
+sleep 1h
+```
+
+It is useful for safe process-management practice.
+
+---
+
+## 🏃 Background Processes
+
+```bash
+sleep 300 &
+```
+
+The `&` runs the command in the background.
+
+Example output:
+
+```text
+[1] 1303
+```
+
+Meaning:
+
+```text
+1    = shell job number
+1303 = PID
+```
+
+---
+
+## 🧰 Job Control
+
+| Command / Shortcut | Description |
+|---|---|
+| `jobs` | Show shell jobs |
+| `Ctrl+Z` | Pause current foreground job |
+| `bg` | Continue paused job in background |
+| `fg` | Bring job to foreground |
+| `Ctrl+C` | Stop foreground process |
+
+---
+
+## 🔎 Finding Processes
+
+```bash
+pgrep sleep
+```
+
+or:
+
+```bash
+ps aux | grep sleep
+```
+
+---
+
+## 🛑 Killing Processes
+
+```bash
+kill PID
+```
+
+Example:
+
+```bash
+kill 1303
+```
+
+Verify:
+
+```bash
+pgrep sleep
+```
+
+---
+
+## 📊 `top`
+
+Live system/process monitor:
+
+```bash
+top
+```
+
+Useful information:
+
+```text
+load average
+CPU usage
+memory usage
+running/sleeping processes
+PID
+%CPU
+%MEM
+COMMAND
+```
+
+Press:
+
+```text
+q
+```
+
+to quit.
+
+One-shot view:
+
+```bash
+top -b -n 1 | head -20
+```
+
+---
+
+## 🧠 Day 3 Mental Model
+
+Permissions:
+
+```text
+Who owns this?
+↓
+Who can read?
+↓
+Who can write?
+↓
+Who can execute?
+```
+
+Processes:
+
+```text
+What is running?
+↓
+What is its PID?
+↓
+Foreground or background?
+↓
+Pause, resume, or stop?
+```
+
+---
+
+# Common Mistakes From Days 1–3
+
+## `mkdir` vs `touch`
+
+```bash
+mkdir notes.txt   # directory
+touch notes.txt   # file
+```
+
+## Wrong relative path
+
+Check:
+
+```bash
 pwd
 ls
+```
 
-Mistake 3: Forgetting that . and .. have meanings
+## `>` vs `>>`
 
-.   current directory
-..  parent directory
+```text
+>  overwrite
+>> append
+```
 
-Mistake 4: Using > when >> was intended
+## Case-sensitive options
 
-echo "new text" > file.txt
+```bash
+grep -v   # invert match
+grep -V   # version
+```
 
-replaces previous content.
+## Wrong `find` syntax
 
-echo "new text" >> file.txt
+Wrong:
 
-adds to the end.
+```bash
+find . type -f
+```
 
-Mistake 5: Running rm -r carelessly
+Correct:
 
-Always verify:
+```bash
+find . -type f
+```
 
-pwd
-ls
+## Wrong pipeline order
 
-before recursively deleting important-looking paths.
+Better:
 
-Mistake 6: Assuming file extensions define file type
+```bash
+sort names.txt | uniq -c
+```
 
-Linux does not treat .txt, .png, or .java as magical file types by filename alone.
+## `rm` vs `rm -r`
 
-Names are names.
+```bash
+rm file.txt
+rm -r folder
+```
 
-A directory can even be named:
+---
 
-example.txt
+# Quick Revision Cheat Sheet
 
-28. Expert Habits to Start Building Early
+## Day 1
 
-1. Check location before destructive commands
-
-pwd
-
-2. Inspect before deleting
-
-ls
-
-3. Use Tab completion
-
-It is faster and reduces typos.
-
-4. Use command history
-
-Up Arrow
-Ctrl + R
-
-5. Prefer understanding paths over memorizing commands
-
-Many beginner problems are actually path problems.
-
-6. Read error messages
-
-Linux usually tells you what went wrong.
-
-7. Practice in a safe lab directory
-
-Avoid experimenting with destructive commands in important system directories.
-
-29. Day 1 Revision Checklist
-
-A learner should be able to answer these questions without notes:
-
-What does pwd do?
-
-What is the difference between . and ..?
-
-What does ~ represent?
-
-What does cd - do?
-
-What is the difference between mkdir and touch?
-
-How is a file copied?
-
-How is a file renamed?
-
-What is the difference between rm and rmdir?
-
-What does rm -r do?
-
-How are hidden files named in Linux?
-
-What is the difference between ls, ls -l, and ls -a?
-
-What is the difference between cat, head, tail, and less?
-
-What is the difference between > and >>?
-
-Why might a relative path fail?
-
-How can command history be searched?
-
-What does Tab completion do?
-
-30. Minimum Commands to Remember After Day 1
-
+```bash
 whoami
 pwd
 ls
@@ -1156,52 +754,97 @@ cp
 mv
 rm
 rmdir
-find
+find .
 cat
 head
 tail
 less
 echo
 history
+```
 
-Do not try to memorize every possible option.
+## Day 2
 
-The more important skill is understanding:
+```bash
+grep
+grep -i
+grep -n
+grep -v
+grep -c
+grep -E
+wc
+wc -l
+sort
+sort -r
+sort -nr
+uniq
+uniq -c
+find . -type f
+find . -type d
+find . -name "*.txt"
+|
+>
+>>
+```
 
-where you are
-what path you are using
-what object you are modifying
-what the command will do
+## Day 3
 
-31. Core Mental Model
-
-When working in Linux, think in this order:
-
-Who am I?
-↓
-Where am I?
-↓
-What exists here?
-↓
-What path do I need?
-↓
-What action should I perform?
-↓
-How can I verify the result?
-
-A useful command pattern is:
-
+```bash
+chmod
 whoami
-pwd
-ls
+id
+groups
+ps
+ps aux
+sleep
+jobs
+pgrep
+bg
+fg
+kill
+top
+```
 
-Then perform the task.
+---
 
-Finally verify with tools such as:
+# Final 3-Day Mental Model
 
-ls
-ls -lah
-find .
-cat filename
+```text
+Day 1:
+Navigate → Create → Move → Read → Delete → Verify
 
-This habit prevents many beginner mistakes.
+Day 2:
+Search → Filter → Count → Sort → Save
+
+Day 3:
+Permissions → Users → Processes → Control
+```
+
+---
+
+# Quick Self-Test
+
+1. What does `pwd` do?
+2. What is the difference between `.` and `..`?
+3. What does `cd -` do?
+4. Difference between `mkdir` and `touch`?
+5. What does `>` do?
+6. What does `>>` do?
+7. How do you count `ERROR` lines in a log?
+8. What does `grep -v` do?
+9. Why use `sort` before `uniq -c`?
+10. What does `sort -nr` do?
+11. What does `find . -type f` show?
+12. What does `chmod 640 file` mean?
+13. What does `x` mean?
+14. What is a PID?
+15. What does `sleep 300 &` do?
+16. What does `jobs` show?
+17. Difference between `bg` and `fg`?
+18. What does `kill PID` do?
+19. What information does `top` show?
+20. Why is `sleep` useful for process practice?
+
+---
+
+*Days 1–3 complete. Next: system information, disk, memory, services, logs, and basic networking.*
