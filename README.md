@@ -1,599 +1,490 @@
-[linux_days_1_to_3_theory_commands_only.md](https://github.com/user-attachments/files/32799272/linux_days_1_to_3_theory_commands_only.md)
-# Linux Learning Journey — Days 1 to 3 🐧
+# 🐧 Linux Command Cheat Sheet
 
-A practical beginner Linux ref# Linux Learning Journey — Days 1 to 3 🐧
-
-A practical beginner Linux reference covering terminal basics, file handling, text processing, permissions, users, and process management.
+> My practical Linux reference for AI / Backend Engineering
+> Goal: **remember what to use, not memorize everything**
 
 ---
 
-# Day 1 — Terminal & Filesystem Basics
+# ⚡ 1. Commands I’ll Use All The Time
 
-## 📍 Navigation
+```bash
+pwd
+ls -lah
+cd folder
+cd ..
+mkdir project
+touch file.txt
+cp file.txt copy.txt
+mv old.txt new.txt
+rm file.txt
+cat file.txt
+grep "ERROR" file.log
+find . -name "*.txt"
+ps aux
+free -h
+df -h
+```
 
-| Command | Description |
-|---|---|
-| `whoami` | Show the current logged-in user |
-| `pwd` | Show the full path of the current working directory |
-| `ls` | List files and directories |
-| `ls -l` | Long listing with permissions, owner, size, and time |
-| `ls -a` | Show hidden files |
-| `ls -lh` | Long listing with human-readable sizes |
-| `ls -lah` | Long listing + hidden files + readable sizes |
-| `cd folder` | Enter a directory |
-| `cd ..` | Go to the parent directory |
-| `cd .` | Stay in the current directory |
-| `cd ~` | Go to the home directory |
-| `cd -` | Go back to the previous directory |
-| `clear` / `Ctrl+L` | Clear the terminal screen |
-
-### Important Path Symbols
-
-| Symbol | Meaning |
-|---|---|
-| `/` | Filesystem root |
-| `~` | Home directory |
-| `.` | Current directory |
-| `..` | Parent directory |
-
-### Absolute vs Relative Paths
-
-Absolute path:
+### 🧠 Memory Hook
 
 ```text
-/home/alex/linux-lab/documents/notes.txt
-```
-
-Relative path:
-
-```text
-documents/notes.txt
-```
-
-Think:
-
-```text
-Absolute path = full address
-Relative path = directions from where you are now
+pwd  → where am I?
+ls   → what's here?
+cd   → move
+cp   → copy
+mv   → move / rename
+rm   → delete
+cat  → read
+grep → search text
+find → search files
 ```
 
 ---
 
-## 📁 Creating Files & Directories
+# 📂 2. Files & Folders
 
-| Command | Description |
-|---|---|
-| `mkdir folder` | Create a directory |
-| `mkdir dir1 dir2 dir3` | Create multiple directories |
-| `touch file.txt` | Create an empty file |
-| `touch one.txt two.txt` | Create multiple files |
-
-### Important
-
-```bash
-mkdir notes.txt
-```
-
-creates a directory named `notes.txt`.
-
-```bash
-touch notes.txt
-```
-
-creates a regular file.
-
-Linux does not treat `.txt` as magical. The name alone does not define whether something is a file or directory.
-
----
-
-## 📂 Copying, Moving & Renaming
-
-| Command | Description |
-|---|---|
-| `cp source destination` | Copy a file |
-| `cp fileA fileB` | Copy fileA into fileB |
-| `mv source destination` | Move a file |
-| `mv oldname newname` | Rename a file |
-
-Examples:
-
-```bash
-cp documents/notes.txt downloads/
-mv downloads/test.txt projects/
-mv projects/app.txt projects/main.txt
-```
-
-Copy and rename:
-
-```bash
-cp documents/notes.txt backup/notes-copy.txt
-```
-
----
-
-## 🗑️ Deleting Files & Directories
-
-| Command | Description |
-|---|---|
-| `rm file.txt` | Delete a file |
-| `rmdir folder` | Delete an empty directory |
-| `rm -r folder` | Delete a directory and everything inside it |
-
-### Safe Habit
-
-Before recursive deletion:
+## Navigate
 
 ```bash
 pwd
 ls
-```
-
-Then verify the target.
-
----
-
-## 👻 Hidden Files
-
-Hidden files usually start with `.`
-
-Example:
-
-```bash
-touch .config
-```
-
-Normal listing:
-
-```bash
-ls
-```
-
-Hidden listing:
-
-```bash
+ls -l
 ls -a
-```
+ls -lah
 
-Remember:
+cd folder
+cd ..
+cd ~
+cd -
+```
 
 ```text
-.  = current directory
-.. = parent directory
+.   current folder
+..  parent folder
+~   home
+/   root
 ```
 
 ---
 
-## 📄 Viewing File Content
+## Create
 
-| Command | Description |
-|---|---|
-| `cat file` | Show the full file |
-| `head file` | Show the first 10 lines |
-| `head -5 file` | Show the first 5 lines |
-| `tail file` | Show the last 10 lines |
-| `tail -5 file` | Show the last 5 lines |
-| `less file` | Scroll through a file interactively |
+```bash
+mkdir project
+mkdir folder1 folder2
 
-Useful `less` controls:
-
-| Key | Action |
-|---|---|
-| `↑ / ↓` | Move through file |
-| `/word` | Search |
-| `n` | Next search result |
-| `q` | Quit |
+touch file.txt
+touch a.txt b.txt
+```
 
 ---
 
-## 📝 Writing Text & Redirection
+## Copy
 
-| Command | Description |
-|---|---|
-| `echo "text"` | Print text |
-| `echo "text" > file.txt` | Overwrite file with text |
-| `echo "text" >> file.txt` | Append text |
+```bash
+cp file.txt copy.txt
+cp file.txt folder/
 
-Remember:
+cp -r project backup/
+```
+
+---
+
+## Move / Rename
+
+```bash
+mv file.txt folder/
+
+mv old.txt new.txt
+```
+
+---
+
+## Delete
+
+```bash
+rm file.txt
+rmdir empty-folder
+rm -r folder
+```
+
+⚠️ `rm -r` deletes a directory and everything inside it.
+
+---
+
+# 👀 3. Read Files
+
+```bash
+cat file.txt
+head file.txt
+tail file.txt
+less file.txt
+```
+
+Specific lines:
+
+```bash
+head -5 file.txt
+tail -10 file.txt
+```
+
+Inside `less`:
 
 ```text
->  = overwrite
->> = append
+q = quit
 ```
 
 ---
 
-## 🔍 Inspecting Directory Structure
+# ✍️ 4. Write to Files
+
+Print:
+
+```bash
+echo "Hello Linux"
+```
+
+Overwrite file:
+
+```bash
+echo "hello" > file.txt
+```
+
+Append:
+
+```bash
+echo "new line" >> file.txt
+```
+
+### 🧠 Remember
+
+```text
+>   replace
+>>  append
+```
+
+---
+
+# 🔗 5. Pipes
+
+A pipe sends output from one command into another.
+
+```bash
+command1 | command2
+```
+
+Examples:
+
+```bash
+ps aux | head
+
+grep ERROR server.log | wc -l
+
+du -sh * | sort -h
+```
+
+### 🧠 Think
+
+```text
+command
+   ↓
+output
+   ↓
+next command
+```
+
+---
+
+# 🔎 6. Search Inside Files — grep
+
+Basic:
+
+```bash
+grep "ERROR" server.log
+```
+
+Ignore uppercase/lowercase:
+
+```bash
+grep -i "error" server.log
+```
+
+Show line numbers:
+
+```bash
+grep -n "ERROR" server.log
+```
+
+Exclude matches:
+
+```bash
+grep -v "INFO" server.log
+```
+
+Count matches:
+
+```bash
+grep -c "ERROR" server.log
+```
+
+Multiple patterns:
+
+```bash
+grep -E "ERROR|WARNING" server.log
+```
+
+Search multiple files:
+
+```bash
+grep -l "ERROR" *.txt
+```
+
+### ⭐ Useful Combo
+
+```bash
+grep ERROR server.log | wc -l
+```
+
+---
+
+# 🔍 7. Find Files
+
+Everything:
 
 ```bash
 find .
 ```
 
-Example:
-
-```text
-.
-./documents
-./documents/linux.txt
-./documents/notes.txt
-./projects
-./projects/main.txt
-```
-
----
-
-## 🔁 Basic Bash Loop
+Files only:
 
 ```bash
-for i in {1..15}; do echo "line $i" >> notes.txt; done
+find . -type f
 ```
 
----
-
-## ⌨️ Useful Terminal Shortcuts
-
-| Shortcut | Description |
-|---|---|
-| `↑` | Previous command |
-| `↓` | Next command |
-| `Ctrl+R` | Search command history |
-| `Tab` | Autocomplete |
-| `Ctrl+A` | Move to start of line |
-| `Ctrl+E` | Move to end of line |
-| `Ctrl+L` | Clear screen |
-| `Ctrl+C` | Stop current command |
-
----
-
-## 🧠 Day 1 Mental Model
-
-```text
-Who am I?
-↓
-Where am I?
-↓
-What is here?
-↓
-What path do I need?
-↓
-What command should I use?
-↓
-How do I verify it?
-```
-
----
-
-# Day 2 — Search, Filter, Count & Sort
-
-## 🔎 `grep`
-
-| Command | Description |
-|---|---|
-| `grep "word" file` | Show lines containing the word |
-| `grep -i "word" file` | Ignore uppercase/lowercase |
-| `grep -n "word" file` | Show matching line numbers |
-| `grep -v "word" file` | Show lines that do NOT match |
-| `grep -c "word" file` | Count matching lines |
-| `grep -l "word" file` | Show filename if it contains a match |
-| `grep -E "A|B" file` | Match A OR B |
-
-Examples:
+Directories only:
 
 ```bash
-grep "ERROR" server.log
-grep -i "alice" server.log
-grep -n "ERROR" server.log
-grep -v "INFO" server.log
-grep -E "ERROR|WARNING" server.log
+find . -type d
 ```
 
----
-
-## 🔢 `wc`
-
-| Command | Description |
-|---|---|
-| `wc file` | Show lines, words, and bytes |
-| `wc -l file` | Count lines |
-| `wc -w file` | Count words |
-| `wc -c file` | Count bytes |
-
----
-
-## 🔗 Pipes `|`
+Find `.txt`:
 
 ```bash
-grep "ERROR" server.log | wc -l
+find . -type f -name "*.txt"
 ```
 
-Mental model:
+Case insensitive:
 
-```text
-find ERROR lines
-↓
-count them
+```bash
+find . -type f -iname "*.txt"
+```
+
+Count files:
+
+```bash
+find . -type f | wc -l
+```
+
+Filter results:
+
+```bash
+find . | grep project
 ```
 
 ---
 
-## 🔃 `sort` and `uniq`
+# 🔢 8. Count / Sort / Duplicates
 
-| Command | Description |
-|---|---|
-| `sort file` | Sort alphabetically |
-| `sort -r file` | Reverse sort |
-| `uniq` | Remove consecutive duplicate lines |
-| `uniq -c` | Count consecutive duplicates |
-| `sort -nr` | Numeric sort, highest first |
+## Count
 
-Examples:
+```bash
+wc -l file.txt
+wc -w file.txt
+wc -c file.txt
+```
+
+```text
+-l = lines
+-w = words
+-c = bytes
+```
+
+---
+
+## Sort
+
+```bash
+sort names.txt
+sort -r names.txt
+sort -n numbers.txt
+sort -nr numbers.txt
+```
+
+### 🧠 Remember
+
+```text
+-n  numeric
+-r  reverse
+
+-nr = biggest number first
+```
+
+---
+
+## Duplicates
 
 ```bash
 sort names.txt | uniq
+```
+
+Count occurrences:
+
+```bash
 sort names.txt | uniq -c
+```
+
+Most common:
+
+```bash
 sort names.txt | uniq -c | sort -nr
+```
+
+Top 2:
+
+```bash
 sort names.txt | uniq -c | sort -nr | head -2
 ```
 
-### Why `sort -nr`?
-
-```text
--n = numeric
--r = reverse
-```
-
-So `sort -nr` sorts numbers from largest to smallest.
-
 ---
 
-## 🔍 `find`
+# 🌟 9. Wildcards
 
-| Command | Description |
-|---|---|
-| `find . -type f` | Find files only |
-| `find . -type d` | Find directories only |
-| `find . -name "*.txt"` | Find `.txt` files |
-| `find . -iname "*.txt"` | Case-insensitive filename search |
-
-Examples:
+All `.txt` files:
 
 ```bash
-find . -name "*.txt" | wc -l
-find . -type f | grep "notes"
+*.txt
 ```
 
----
-
-## 💾 Saving Filtered Output
+Example:
 
 ```bash
-grep "ERROR" server.log > errors.txt
-grep -v "INFO" server.log > problems.txt
+ls *.txt
 ```
 
-Verify:
+One unknown character:
 
 ```bash
-cat errors.txt
-cat problems.txt
+file?.txt
 ```
 
 ---
 
-## 🧠 Day 2 Mental Model
+# 🔐 10. Permissions
 
-```text
-Get data
-↓
-Filter it
-↓
-Count / sort / rank it
-↓
-Display or save result
+Check permissions:
+
+```bash
+ls -l
 ```
-
----
-
-# Day 3 — Permissions, Users & Processes
-
-## 🔐 File Permissions
 
 Example:
 
 ```text
--rw-r--r--
-```
-
-Breakdown:
-
-```text
--   rw-   r--   r--
-    owner group others
-```
-
-File type:
-
-```text
-- = regular file
-d = directory
-```
-
-Permission letters:
-
-| Letter | Meaning |
-|---|---|
-| `r` | read |
-| `w` | write |
-| `x` | execute/access |
-
-Numeric values:
-
-| Permission | Value |
-|---|---|
-| `r` | 4 |
-| `w` | 2 |
-| `x` | 1 |
-
-Examples:
-
-```text
-7 = rwx = 4+2+1
-6 = rw- = 4+2
-5 = r-x = 4+1
-4 = r--
-```
-
----
-
-## 🔧 `chmod`
-
-```bash
-chmod 600 file
-chmod 644 file
-chmod 755 file
+-rwxr-xr-x
 ```
 
 Meaning:
 
 ```text
-600 = rw-------
-644 = rw-r--r--
-755 = rwxr-xr-x
-700 = rwx------
-640 = rw-r-----
-444 = r--r--r--
+r = read
+w = write
+x = execute
 ```
 
-The three digits represent:
+Numbers:
 
 ```text
-owner | group | others
+r = 4
+w = 2
+x = 1
 ```
 
 ---
 
-## 👤 Users & Groups
+## Common Permissions
 
-| Command | Description |
-|---|---|
-| `whoami` | Show current username |
-| `id` | Show UID, GID, and groups |
-| `groups` | Show groups the user belongs to |
+```bash
+chmod 600 secret.txt
+chmod 644 notes.txt
+chmod 755 script.sh
+chmod 700 private.sh
+chmod 640 config.txt
+chmod 444 readonly.txt
+```
+
+### 🧠 Remember These
+
+```text
+600 → private file
+
+644 → normal file
+
+755 → executable/script
+
+700 → private executable/folder
+```
+
+Add execute:
+
+```bash
+chmod +x script.sh
+```
+
+Remove execute:
+
+```bash
+chmod -x script.sh
+```
 
 ---
 
-## ⚙️ Processes
+# 👤 11. User Info
 
-A process is a running program.
-
-```text
-PID = Process ID
+```bash
+whoami
+id
+groups
 ```
 
-### `ps`
+---
+
+# ⚙️ 12. Processes
+
+Simple:
 
 ```bash
 ps
 ```
 
-Shows processes attached to the current shell.
-
-### `ps aux`
+All processes:
 
 ```bash
 ps aux
 ```
 
-Shows a much broader process list.
-
-Useful columns:
-
-| Column | Meaning |
-|---|---|
-| `USER` | Process owner |
-| `PID` | Process ID |
-| `%CPU` | CPU usage |
-| `%MEM` | Memory usage |
-| `STAT` | Process state |
-| `COMMAND` | Program/command |
-
----
-
-## 😴 `sleep`
-
-`sleep` is a standard Unix/Linux command.
+First few:
 
 ```bash
-sleep 300
+ps aux | head
 ```
 
-means:
-
-> wait for 300 seconds, then exit.
-
-Examples:
-
-```bash
-sleep 5
-sleep 30
-sleep 300
-sleep 2m
-sleep 1h
-```
-
-It is useful for safe process-management practice.
-
----
-
-## 🏃 Background Processes
-
-```bash
-sleep 300 &
-```
-
-The `&` runs the command in the background.
-
-Example output:
-
-```text
-[1] 1303
-```
-
-Meaning:
-
-```text
-1    = shell job number
-1303 = PID
-```
-
----
-
-## 🧰 Job Control
-
-| Command / Shortcut | Description |
-|---|---|
-| `jobs` | Show shell jobs |
-| `Ctrl+Z` | Pause current foreground job |
-| `bg` | Continue paused job in background |
-| `fg` | Bring job to foreground |
-| `Ctrl+C` | Stop foreground process |
-
----
-
-## 🔎 Finding Processes
+Find process:
 
 ```bash
 pgrep sleep
 ```
 
-or:
-
-```bash
-ps aux | grep sleep
-```
-
----
-
-## 🛑 Killing Processes
+Kill process:
 
 ```bash
 kill PID
@@ -602,1073 +493,914 @@ kill PID
 Example:
 
 ```bash
-kill 1303
-```
-
-Verify:
-
-```bash
-pgrep sleep
+kill 2450
 ```
 
 ---
 
-## 📊 `top`
+# 🏃 13. Foreground & Background
 
-Live system/process monitor:
-
-```bash
-top
-```
-
-Useful information:
-
-```text
-load average
-CPU usage
-memory usage
-running/sleeping processes
-PID
-%CPU
-%MEM
-COMMAND
-```
-
-Press:
-
-```text
-q
-```
-
-to quit.
-
-One-shot view:
-
-```bash
-top -b -n 1 | head -20
-```
-
----
-
-## 🧠 Day 3 Mental Model
-
-Permissions:
-
-```text
-Who owns this?
-↓
-Who can read?
-↓
-Who can write?
-↓
-Who can execute?
-```
-
-Processes:
-
-```text
-What is running?
-↓
-What is its PID?
-↓
-Foreground or background?
-↓
-Pause, resume, or stop?
-```
-
----
-
-# Common Mistakes From Days 1–3
-
-## `mkdir` vs `touch`
-
-```bash
-mkdir notes.txt   # directory
-touch notes.txt   # file
-```
-
-## Wrong relative path
-
-Check:
-
-```bash
-pwd
-ls
-```
-
-## `>` vs `>>`
-
-```text
->  overwrite
->> append
-```
-
-## Case-sensitive options
-
-```bash
-grep -v   # invert match
-grep -V   # version
-```
-
-## Wrong `find` syntax
-
-Wrong:
-
-```bash
-find . type -f
-```
-
-Correct:
-
-```bash
-find . -type f
-```
-
-## Wrong pipeline order
-
-Better:
-
-```bash
-sort names.txt | uniq -c
-```
-
-## `rm` vs `rm -r`
-
-```bash
-rm file.txt
-rm -r folder
-```
-
----
-
-# Command Cheat Sheet
-
-## Day 1
-
-```bash
-whoami
-pwd
-ls
-ls -lah
-cd
-mkdir
-touch
-cp
-mv
-rm
-rmdir
-find .
-cat
-head
-tail
-less
-echo
-history
-```
-
-## Day 2
-
-```bash
-grep
-grep -i
-grep -n
-grep -v
-grep -c
-grep -E
-wc
-wc -l
-sort
-sort -r
-sort -nr
-uniq
-uniq -c
-find . -type f
-find . -type d
-find . -name "*.txt"
-|
->
->>
-```
-
-## Day 3
-
-```bash
-chmod
-whoami
-id
-groups
-ps
-ps aux
-sleep
-jobs
-pgrep
-bg
-fg
-kill
-top
-```
-
----
-
-# Final 3-Day Mental Model
-
-```text
-Day 1:
-Navigate → Create → Move → Read → Delete → Verify
-
-Day 2:
-Search → Filter → Count → Sort → Save
-
-Day 3:
-Permissions → Users → Processes → Control
-```
-
----
-erence covering terminal basics, file handling, text processing, permissions, users, and process management.
-
----
-
-# Day 1 — Terminal & Filesystem Basics
-
-## 📍 Navigation
-
-| Command | Description |
-|---|---|
-| `whoami` | Show the current logged-in user |
-| `pwd` | Show the full path of the current working directory |
-| `ls` | List files and directories |
-| `ls -l` | Long listing with permissions, owner, size, and time |
-| `ls -a` | Show hidden files |
-| `ls -lh` | Long listing with human-readable sizes |
-| `ls -lah` | Long listing + hidden files + readable sizes |
-| `cd folder` | Enter a directory |
-| `cd ..` | Go to the parent directory |
-| `cd .` | Stay in the current directory |
-| `cd ~` | Go to the home directory |
-| `cd -` | Go back to the previous directory |
-| `clear` / `Ctrl+L` | Clear the terminal screen |
-
-### Important Path Symbols
-
-| Symbol | Meaning |
-|---|---|
-| `/` | Filesystem root |
-| `~` | Home directory |
-| `.` | Current directory |
-| `..` | Parent directory |
-
-### Absolute vs Relative Paths
-
-Absolute path:
-
-```text
-/home/alex/linux-lab/documents/notes.txt
-```
-
-Relative path:
-
-```text
-documents/notes.txt
-```
-
-Think:
-
-```text
-Absolute path = full address
-Relative path = directions from where you are now
-```
-
----
-
-## 📁 Creating Files & Directories
-
-| Command | Description |
-|---|---|
-| `mkdir folder` | Create a directory |
-| `mkdir dir1 dir2 dir3` | Create multiple directories |
-| `touch file.txt` | Create an empty file |
-| `touch one.txt two.txt` | Create multiple files |
-
-### Important
-
-```bash
-mkdir notes.txt
-```
-
-creates a directory named `notes.txt`.
-
-```bash
-touch notes.txt
-```
-
-creates a regular file.
-
-Linux does not treat `.txt` as magical. The name alone does not define whether something is a file or directory.
-
----
-
-## 📂 Copying, Moving & Renaming
-
-| Command | Description |
-|---|---|
-| `cp source destination` | Copy a file |
-| `cp fileA fileB` | Copy fileA into fileB |
-| `mv source destination` | Move a file |
-| `mv oldname newname` | Rename a file |
-
-Examples:
-
-```bash
-cp documents/notes.txt downloads/
-mv downloads/test.txt projects/
-mv projects/app.txt projects/main.txt
-```
-
-Copy and rename:
-
-```bash
-cp documents/notes.txt backup/notes-copy.txt
-```
-
----
-
-## 🗑️ Deleting Files & Directories
-
-| Command | Description |
-|---|---|
-| `rm file.txt` | Delete a file |
-| `rmdir folder` | Delete an empty directory |
-| `rm -r folder` | Delete a directory and everything inside it |
-
-### Safe Habit
-
-Before recursive deletion:
-
-```bash
-pwd
-ls
-```
-
-Then verify the target.
-
----
-
-## 👻 Hidden Files
-
-Hidden files usually start with `.`
-
-Example:
-
-```bash
-touch .config
-```
-
-Normal listing:
-
-```bash
-ls
-```
-
-Hidden listing:
-
-```bash
-ls -a
-```
-
-Remember:
-
-```text
-.  = current directory
-.. = parent directory
-```
-
----
-
-## 📄 Viewing File Content
-
-| Command | Description |
-|---|---|
-| `cat file` | Show the full file |
-| `head file` | Show the first 10 lines |
-| `head -5 file` | Show the first 5 lines |
-| `tail file` | Show the last 10 lines |
-| `tail -5 file` | Show the last 5 lines |
-| `less file` | Scroll through a file interactively |
-
-Useful `less` controls:
-
-| Key | Action |
-|---|---|
-| `↑ / ↓` | Move through file |
-| `/word` | Search |
-| `n` | Next search result |
-| `q` | Quit |
-
----
-
-## 📝 Writing Text & Redirection
-
-| Command | Description |
-|---|---|
-| `echo "text"` | Print text |
-| `echo "text" > file.txt` | Overwrite file with text |
-| `echo "text" >> file.txt` | Append text |
-
-Remember:
-
-```text
->  = overwrite
->> = append
-```
-
----
-
-## 🔍 Inspecting Directory Structure
-
-```bash
-find .
-```
-
-Example:
-
-```text
-.
-./documents
-./documents/linux.txt
-./documents/notes.txt
-./projects
-./projects/main.txt
-```
-
----
-
-## 🔁 Basic Bash Loop
-
-```bash
-for i in {1..15}; do echo "line $i" >> notes.txt; done
-```
-
----
-
-## ⌨️ Useful Terminal Shortcuts
-
-| Shortcut | Description |
-|---|---|
-| `↑` | Previous command |
-| `↓` | Next command |
-| `Ctrl+R` | Search command history |
-| `Tab` | Autocomplete |
-| `Ctrl+A` | Move to start of line |
-| `Ctrl+E` | Move to end of line |
-| `Ctrl+L` | Clear screen |
-| `Ctrl+C` | Stop current command |
-
----
-
-## 🧠 Day 1 Mental Model
-
-```text
-Who am I?
-↓
-Where am I?
-↓
-What is here?
-↓
-What path do I need?
-↓
-What command should I use?
-↓
-How do I verify it?
-```
-
----
-
-# Day 2 — Search, Filter, Count & Sort
-
-## 🔎 `grep`
-
-| Command | Description |
-|---|---|
-| `grep "word" file` | Show lines containing the word |
-| `grep -i "word" file` | Ignore uppercase/lowercase |
-| `grep -n "word" file` | Show matching line numbers |
-| `grep -v "word" file` | Show lines that do NOT match |
-| `grep -c "word" file` | Count matching lines |
-| `grep -l "word" file` | Show filename if it contains a match |
-| `grep -E "A|B" file` | Match A OR B |
-
-Examples:
-
-```bash
-grep "ERROR" server.log
-grep -i "alice" server.log
-grep -n "ERROR" server.log
-grep -v "INFO" server.log
-grep -E "ERROR|WARNING" server.log
-```
-
----
-
-## 🔢 `wc`
-
-| Command | Description |
-|---|---|
-| `wc file` | Show lines, words, and bytes |
-| `wc -l file` | Count lines |
-| `wc -w file` | Count words |
-| `wc -c file` | Count bytes |
-
----
-
-## 🔗 Pipes `|`
-
-```bash
-grep "ERROR" server.log | wc -l
-```
-
-Mental model:
-
-```text
-find ERROR lines
-↓
-count them
-```
-
----
-
-## 🔃 `sort` and `uniq`
-
-| Command | Description |
-|---|---|
-| `sort file` | Sort alphabetically |
-| `sort -r file` | Reverse sort |
-| `uniq` | Remove consecutive duplicate lines |
-| `uniq -c` | Count consecutive duplicates |
-| `sort -nr` | Numeric sort, highest first |
-
-Examples:
-
-```bash
-sort names.txt | uniq
-sort names.txt | uniq -c
-sort names.txt | uniq -c | sort -nr
-sort names.txt | uniq -c | sort -nr | head -2
-```
-
-### Why `sort -nr`?
-
-```text
--n = numeric
--r = reverse
-```
-
-So `sort -nr` sorts numbers from largest to smallest.
-
----
-
-## 🔍 `find`
-
-| Command | Description |
-|---|---|
-| `find . -type f` | Find files only |
-| `find . -type d` | Find directories only |
-| `find . -name "*.txt"` | Find `.txt` files |
-| `find . -iname "*.txt"` | Case-insensitive filename search |
-
-Examples:
-
-```bash
-find . -name "*.txt" | wc -l
-find . -type f | grep "notes"
-```
-
----
-
-## 💾 Saving Filtered Output
-
-```bash
-grep "ERROR" server.log > errors.txt
-grep -v "INFO" server.log > problems.txt
-```
-
-Verify:
-
-```bash
-cat errors.txt
-cat problems.txt
-```
-
----
-
-## 🧠 Day 2 Mental Model
-
-```text
-Get data
-↓
-Filter it
-↓
-Count / sort / rank it
-↓
-Display or save result
-```
-
----
-
-# Day 3 — Permissions, Users & Processes
-
-## 🔐 File Permissions
-
-Example:
-
-```text
--rw-r--r--
-```
-
-Breakdown:
-
-```text
--   rw-   r--   r--
-    owner group others
-```
-
-File type:
-
-```text
-- = regular file
-d = directory
-```
-
-Permission letters:
-
-| Letter | Meaning |
-|---|---|
-| `r` | read |
-| `w` | write |
-| `x` | execute/access |
-
-Numeric values:
-
-| Permission | Value |
-|---|---|
-| `r` | 4 |
-| `w` | 2 |
-| `x` | 1 |
-
-Examples:
-
-```text
-7 = rwx = 4+2+1
-6 = rw- = 4+2
-5 = r-x = 4+1
-4 = r--
-```
-
----
-
-## 🔧 `chmod`
-
-```bash
-chmod 600 file
-chmod 644 file
-chmod 755 file
-```
-
-Meaning:
-
-```text
-600 = rw-------
-644 = rw-r--r--
-755 = rwxr-xr-x
-700 = rwx------
-640 = rw-r-----
-444 = r--r--r--
-```
-
-The three digits represent:
-
-```text
-owner | group | others
-```
-
----
-
-## 👤 Users & Groups
-
-| Command | Description |
-|---|---|
-| `whoami` | Show current username |
-| `id` | Show UID, GID, and groups |
-| `groups` | Show groups the user belongs to |
-
----
-
-## ⚙️ Processes
-
-A process is a running program.
-
-```text
-PID = Process ID
-```
-
-### `ps`
-
-```bash
-ps
-```
-
-Shows processes attached to the current shell.
-
-### `ps aux`
-
-```bash
-ps aux
-```
-
-Shows a much broader process list.
-
-Useful columns:
-
-| Column | Meaning |
-|---|---|
-| `USER` | Process owner |
-| `PID` | Process ID |
-| `%CPU` | CPU usage |
-| `%MEM` | Memory usage |
-| `STAT` | Process state |
-| `COMMAND` | Program/command |
-
----
-
-## 😴 `sleep`
-
-`sleep` is a standard Unix/Linux command.
+Run normally:
 
 ```bash
 sleep 300
 ```
 
-means:
-
-> wait for 300 seconds, then exit.
-
-Examples:
-
-```bash
-sleep 5
-sleep 30
-sleep 300
-sleep 2m
-sleep 1h
-```
-
-It is useful for safe process-management practice.
-
----
-
-## 🏃 Background Processes
+Run in background:
 
 ```bash
 sleep 300 &
 ```
 
-The `&` runs the command in the background.
+Show shell jobs:
 
-Example output:
+```bash
+jobs
+```
+
+Pause:
 
 ```text
-[1] 1303
+Ctrl + Z
 ```
 
-Meaning:
+Resume in background:
+
+```bash
+bg
+```
+
+Bring back:
+
+```bash
+fg
+```
+
+Stop:
 
 ```text
-1    = shell job number
-1303 = PID
+Ctrl + C
+```
+
+### 🧠 Important
+
+```text
+jobs   → jobs from MY terminal
+
+ps aux → processes from the SYSTEM
 ```
 
 ---
 
-## 🧰 Job Control
+# 📊 14. System Health
 
-| Command / Shortcut | Description |
-|---|---|
-| `jobs` | Show shell jobs |
-| `Ctrl+Z` | Pause current foreground job |
-| `bg` | Continue paused job in background |
-| `fg` | Bring job to foreground |
-| `Ctrl+C` | Stop foreground process |
-
----
-
-## 🔎 Finding Processes
+Uptime:
 
 ```bash
-pgrep sleep
+uptime
 ```
 
-or:
+Memory:
 
 ```bash
-ps aux | grep sleep
+free -h
 ```
 
----
-
-## 🛑 Killing Processes
+Disk:
 
 ```bash
-kill PID
+df -h
 ```
 
-Example:
+Directory size:
 
 ```bash
-kill 1303
+du -sh .
 ```
 
-Verify:
+Size of everything here:
 
 ```bash
-pgrep sleep
+du -sh *
 ```
 
----
+Sort by size:
 
-## 📊 `top`
+```bash
+du -sh * | sort -h
+```
 
-Live system/process monitor:
+Live process monitor:
 
 ```bash
 top
 ```
 
-Useful information:
-
-```text
-load average
-CPU usage
-memory usage
-running/sleeping processes
-PID
-%CPU
-%MEM
-COMMAND
-```
-
-Press:
-
-```text
-q
-```
-
-to quit.
-
-One-shot view:
+Snapshot:
 
 ```bash
 top -b -n 1 | head -20
 ```
 
----
-
-## 🧠 Day 3 Mental Model
-
-Permissions:
+### 🧠 Remember
 
 ```text
-Who owns this?
-↓
-Who can read?
-↓
-Who can write?
-↓
-Who can execute?
-```
-
-Processes:
-
-```text
-What is running?
-↓
-What is its PID?
-↓
-Foreground or background?
-↓
-Pause, resume, or stop?
+free → RAM
+df   → disk/filesystem
+du   → folder/file size
+top  → processes/resources
 ```
 
 ---
 
-# Common Mistakes From Days 1–3
-
-## `mkdir` vs `touch`
+# 💻 15. System Information
 
 ```bash
-mkdir notes.txt   # directory
-touch notes.txt   # file
+uname -a
+hostname
+uptime
 ```
 
-## Wrong relative path
+---
+
+# 🛠️ 16. Services
+
+Check service:
+
+```bash
+systemctl status cron
+```
+
+Is it running?
+
+```bash
+systemctl is-active cron
+```
+
+### 🧠 Remember
+
+```text
+systemctl → services
+```
+
+---
+
+# 📜 17. Logs
+
+Recent logs:
+
+```bash
+journalctl -n 20
+```
+
+Errors:
+
+```bash
+journalctl -p err -n 20
+```
+
+Specific service:
+
+```bash
+journalctl -u cron -n 20
+```
+
+### 🧠 Remember
+
+```text
+journalctl → logs
+```
+
+---
+
+# 🌐 18. Networking
+
+IP addresses:
+
+```bash
+ip addr
+```
+
+Routes:
+
+```bash
+ip route
+```
+
+Test connectivity:
+
+```bash
+ping -c 4 8.8.8.8
+```
+
+Open/listening ports:
+
+```bash
+ss -tulpn
+```
+
+### 🧠 Mental Model
+
+```text
+ip addr  → what IP do I have?
+
+ip route → where does traffic go?
+
+ping     → can I reach it?
+
+ss       → what ports/services are open?
+```
+
+---
+
+# 📦 19. apt — Install Software
+
+Version:
+
+```bash
+apt --version
+```
+
+Refresh packages:
+
+```bash
+sudo apt update
+```
+
+Install:
+
+```bash
+sudo apt install PACKAGE
+```
+
+Example:
+
+```bash
+sudo apt install python3.14-venv
+```
+
+Remove:
+
+```bash
+sudo apt remove PACKAGE
+```
+
+Package info:
+
+```bash
+apt show curl
+```
+
+Installed packages:
+
+```bash
+apt list --installed
+```
+
+Updates available:
+
+```bash
+apt list --upgradable
+```
+
+---
+
+# 🌱 20. Environment Variables
+
+Check common variables:
+
+```bash
+echo $HOME
+echo $USER
+echo $SHELL
+echo $PATH
+```
+
+Create:
+
+```bash
+AI_PROJECT="linux-day5"
+```
+
+Read:
+
+```bash
+echo $AI_PROJECT
+```
+
+Export:
+
+```bash
+export AI_PROJECT
+```
+
+View environment:
+
+```bash
+env
+```
+
+Search environment:
+
+```bash
+env | grep AI_PROJECT
+```
+
+### Used For
+
+```text
+API keys
+database URLs
+settings
+debug flags
+model configuration
+```
+
+---
+
+# 🛣️ 21. PATH
+
+```bash
+echo $PATH
+```
+
+Example:
+
+```text
+/usr/local/bin:/usr/bin:/bin
+```
+
+Linux checks these folders when you run commands.
+
+---
+
+# 🕵️ 22. Where Does a Command Come From?
+
+```bash
+which python3
+which bash
+which grep
+which curl
+which ssh
+```
+
+More locations:
+
+```bash
+whereis bash
+whereis python3
+```
+
+Command type:
+
+```bash
+type cd
+type ls
+type clear
+```
+
+---
+
+# 📦 23. tar — Backups & Archives
+
+Create:
+
+```bash
+tar -czf backup.tar.gz folder/
+```
+
+View contents:
+
+```bash
+tar -tzf backup.tar.gz
+```
+
+Extract:
+
+```bash
+tar -xzf backup.tar.gz
+```
+
+Extract somewhere:
+
+```bash
+tar -xzf backup.tar.gz -C extracted/
+```
+
+### 🧠 Flags
+
+```text
+c → create
+x → extract
+t → show contents
+z → gzip
+f → filename
+C → destination folder
+```
+
+---
+
+# 🔗 24. Symbolic Links
+
+Create:
+
+```bash
+ln -s /path/to/original shortcut
+```
+
+Example:
+
+```bash
+ln -s ~/project/config.txt config-link.txt
+```
 
 Check:
 
 ```bash
-pwd
-ls
+ls -l config-link.txt
 ```
 
-## `>` vs `>>`
+### 🧠 Remember
 
 ```text
->  overwrite
->> append
-```
+copy → new file
 
-## Case-sensitive options
-
-```bash
-grep -v   # invert match
-grep -V   # version
-```
-
-## Wrong `find` syntax
-
-Wrong:
-
-```bash
-find . type -f
-```
-
-Correct:
-
-```bash
-find . -type f
-```
-
-## Wrong pipeline order
-
-Better:
-
-```bash
-sort names.txt | uniq -c
-```
-
-## `rm` vs `rm -r`
-
-```bash
-rm file.txt
-rm -r folder
+symlink → shortcut/reference
 ```
 
 ---
 
-# Quick Revision Cheat Sheet
+# 🌍 25. curl — HTTP / APIs
 
-## Day 1
+Get webpage/API:
 
 ```bash
+curl https://example.com
+```
+
+Headers only:
+
+```bash
+curl -I https://example.com
+```
+
+Follow redirects:
+
+```bash
+curl -L https://example.com
+```
+
+Save response:
+
+```bash
+curl -L https://example.com -o example.html
+```
+
+### 🧠 Flags
+
+```text
+-I → headers
+-L → follow redirect
+-o → save as file
+```
+
+Very useful later for testing APIs:
+
+```bash
+curl http://localhost:8000
+```
+
+---
+
+# 🖥️ 26. SSH — Remote Servers
+
+Version:
+
+```bash
+ssh -V
+```
+
+Location:
+
+```bash
+which ssh
+```
+
+Connect:
+
+```bash
+ssh user@server
+```
+
+Example syntax:
+
+```bash
+ssh ubuntu@server-ip
+```
+
+### Common Errors
+
+```text
+Could not resolve hostname
+→ hostname problem
+
+No route to host
+→ network/host unreachable
+```
+
+---
+
+# 🐍 27. Python Virtual Environment
+
+Create project:
+
+```bash
+mkdir ai-demo
+cd ai-demo
+```
+
+Create environment:
+
+```bash
+python3 -m venv .venv
+```
+
+Activate:
+
+```bash
+source .venv/bin/activate
+```
+
+Check:
+
+```bash
+which python
+which python3
+which pip
+```
+
+Deactivate:
+
+```bash
+deactivate
+```
+
+Delete environment:
+
+```bash
+rm -rf .venv
+```
+
+### 🧠 Mental Model
+
+```text
+System Python
+     ↓
+Project
+     ↓
+.venv
+     ↓
+project packages
+```
+
+---
+
+# 📜 28. Bash Scripts
+
+Create:
+
+```bash
+nano system-check.sh
+```
+
+Example:
+
+```bash
+#!/bin/bash
+
+echo "=== SYSTEM CHECK ==="
+
 whoami
 pwd
-ls
+which python3
+free -h
+df -h
+```
+
+Make executable:
+
+```bash
+chmod +x system-check.sh
+```
+
+Run:
+
+```bash
+./system-check.sh
+```
+
+### Shebang
+
+```bash
+#!/bin/bash
+```
+
+means:
+
+```text
+run this script using Bash
+```
+
+---
+
+# 🔁 29. Bash Loop
+
+```bash
+for i in {1..15}; do
+    echo $i
+done
+```
+
+One line:
+
+```bash
+for i in {1..15}; do echo $i; done
+```
+
+---
+
+# ✏️ 30. Nano Shortcuts
+
+Open file:
+
+```bash
+nano file.txt
+```
+
+```text
+Ctrl + O → save
+Enter    → confirm
+Ctrl + X → exit
+```
+
+---
+
+# ⌨️ 31. Terminal Shortcuts
+
+```text
+Tab      → autocomplete
+
+Ctrl + R → search history
+
+Ctrl + A → start of line
+
+Ctrl + E → end of line
+
+Ctrl + L → clear screen
+
+Ctrl + C → stop process
+
+Ctrl + Z → pause process
+```
+
+---
+
+# 🩺 32. Linux Troubleshooting Cheat Flow
+
+When something breaks:
+
+```bash
+uptime
+```
+
+⬇️
+
+```bash
+free -h
+```
+
+⬇️
+
+```bash
+df -h
+```
+
+⬇️
+
+```bash
+du -sh * | sort -h
+```
+
+⬇️
+
+```bash
+ps aux
+```
+
+⬇️
+
+```bash
+systemctl status SERVICE
+```
+
+⬇️
+
+```bash
+journalctl -u SERVICE -n 20
+```
+
+⬇️
+
+```bash
+ip addr
+ip route
+```
+
+⬇️
+
+```bash
+ping -c 4 8.8.8.8
+```
+
+⬇️
+
+```bash
+ss -tulpn
+```
+
+### 🧠 Think
+
+```text
+CPU/load
+↓
+RAM
+↓
+disk
+↓
+large files
+↓
+process
+↓
+service
+↓
+logs
+↓
+network
+↓
+ports
+```
+
+---
+
+# 🤖 33. AI / Backend Project Routine
+
+When opening a project:
+
+```bash
+cd project
+ls -lah
+```
+
+Activate Python environment:
+
+```bash
+source .venv/bin/activate
+```
+
+Verify Python:
+
+```bash
+which python
+```
+
+Check environment:
+
+```bash
+env
+```
+
+Check processes:
+
+```bash
+ps aux
+```
+
+Check resources:
+
+```bash
+free -h
+df -h
+```
+
+Test backend:
+
+```bash
+curl http://localhost:PORT
+```
+
+Done:
+
+```bash
+deactivate
+```
+
+---
+
+# 🧠 Commands Worth Memorizing
+
+Don't memorize everything.
+
+Memorize these:
+
+```bash
+pwd
 ls -lah
 cd
 mkdir
 touch
+
 cp
 mv
 rm
-rmdir
-find .
+
 cat
 head
 tail
-less
-echo
-history
-```
 
-## Day 2
-
-```bash
 grep
-grep -i
-grep -n
-grep -v
-grep -c
-grep -E
-wc
-wc -l
-sort
-sort -r
-sort -nr
-uniq
-uniq -c
-find . -type f
-find . -type d
-find . -name "*.txt"
-|
->
->>
-```
+find
 
-## Day 3
-
-```bash
-chmod
-whoami
-id
-groups
-ps
 ps aux
-sleep
-jobs
 pgrep
-bg
-fg
 kill
-top
+
+free -h
+df -h
+du -sh
+
+systemctl
+journalctl
+
+ip addr
+ip route
+ping
+ss -tulpn
+
+apt
+env
+export
+which
+
+tar
+curl
+ssh
+
+python3 -m venv .venv
+source .venv/bin/activate
+deactivate
 ```
+
+Everything else can be looked up.
 
 ---
 
-# Final 3-Day Mental Model
+# 🚨 Things I Personally Messed Up
+
+These are worth remembering because I actually made these mistakes:
 
 ```text
-Day 1:
-Navigate → Create → Move → Read → Delete → Verify
-
-Day 2:
-Search → Filter → Count → Sort → Save
-
-Day 3:
-Permissions → Users → Processes → Control
+chmod +x  → ADD execute permission
+chmod -x  → REMOVE execute permission
 ```
 
----
+```text
+tar -c → create
+tar -x → extract
+tar -C → destination directory
+```
 
-# Quick Self-Test
+```text
+df → whole filesystem
+du → files/directories
+```
 
-1. What does `pwd` do?
-2. What is the difference between `.` and `..`?
-3. What does `cd -` do?
-4. Difference between `mkdir` and `touch`?
-5. What does `>` do?
-6. What does `>>` do?
-7. How do you count `ERROR` lines in a log?
-8. What does `grep -v` do?
-9. Why use `sort` before `uniq -c`?
-10. What does `sort -nr` do?
-11. What does `find . -type f` show?
-12. What does `chmod 640 file` mean?
-13. What does `x` mean?
-14. What is a PID?
-15. What does `sleep 300 &` do?
-16. What does `jobs` show?
-17. Difference between `bg` and `fg`?
-18. What does `kill PID` do?
-19. What information does `top` show?
-20. Why is `sleep` useful for process practice?
+```text
+jobs → current terminal jobs
+ps aux → system processes
+```
 
----
+```text
+systemctl → services
+journalctl → logs
+```
 
-*Days 1–3 complete. Next: system information, disk, memory, services, logs, and basic networking.*
+```text
+source .venv/bin/activate
+NOT
+source .venv/bin/active
+```
+
+```text
+grep -v → exclude matches
+grep -V → grep version
+```
